@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Information</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background-color: #34495e;
+            color: white;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+            border-bottom: 2px solid #2c3e50;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        tbody tr:hover {
+            background-color: #ecf0f1;
+            transition: background-color 0.2s ease;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border-left: 4px solid #2c3e50;
+        }
+
+        .form-section h2 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #2c3e50;
+            box-shadow: 0 0 5px rgba(44, 62, 80, 0.2);
+        }
+
+        button {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #34495e;
+        }
+
+        .delete-btn {
+            background-color: #e74c3c;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .stat-card p {
+            margin: 5px 0 0 0;
+            opacity: 0.9;
+        }
+
+        .search-section {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        #searchInput {
+            flex: 1;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .form-buttons button {
+            flex: 1;
+        }
+
+        .cancel-btn {
+            background-color: #95a5a6;
+        }
+
+        .cancel-btn:hover {
+            background-color: #7f8c8d;
+        }
+
+        .edit-btn {
+            background-color: #3498db;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+
+        .edit-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .input-error {
+            border-color: #e74c3c !important;
+            background-color: #fadbd8;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 12px;
+            margin-top: 3px;
+        }
+
+        .success-message {
+            background-color: #d5f4e6;
+            color: #27ae60;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 30px;
+            color: #95a5a6;
+            font-size: 16px;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        tbody tr {
+            animation: slideIn 0.3s ease;
+        }
+
+        input:valid {
+            border-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Employee Information</h1>
+    </header>
+    <main>
+        <div class="stats-section">
+            <div class="stat-card">
+                <h3 id="totalEmployees">0</h3>
+                <p>Total Employees</p>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h2 id="formTitle">Add New Employee</h2>
+            <div class="success-message" id="successMessage"></div>
+            <form id="employeeForm">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    <div class="error-message" id="nameError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="tel" id="phone" name="phone" required>
+                    <div class="error-message" id="phoneError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <div class="error-message" id="emailError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="designation">Designation:</label>
+                    <input type="text" id="designation" name="designation" required>
+                </div>
+                <div class="form-group">
+                    <label for="position">Position:</label>
+                    <input type="text" id="position" name="position" required>
+                </div>
+                <div class="form-group">
+                    <label for="posting">Place of Posting:</label>
+                    <input type="text" id="posting" name="posting" required>
+                </div>
+                <div class="form-buttons">
+                    <button type="submit" id="submitBtn">Add Employee</button>
+                    <button type="button" id="cancelBtn" class="cancel-btn" style="display:none;">Cancel</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="search-section">
+            <input type="text" id="searchInput" placeholder="Search by name, email, phone, or designation...">
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Designation</th>
+                    <th>Position</th>
+                    <th>Place of Posting</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="employeeTableBody">
+                <!-- Employee data will be dynamically inserted here -->
+            </tbody>
+        </table>
+    </main>
+    <script src="scripts/app.js"></script>
+</body>
+</html>

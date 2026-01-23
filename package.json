@@ -1,0 +1,19 @@
+{
+  "name": "hrms-application",
+  "version": "1.0.0",
+  "description": "Human Resource Management System",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js"
+  },
+  "keywords": ["hrms", "employee", "management"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}
